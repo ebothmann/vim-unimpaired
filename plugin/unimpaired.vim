@@ -254,6 +254,10 @@ function! s:cursor_options() abort
   return &cursorline && &cursorcolumn ? 'nocursorline nocursorcolumn' : 'cursorline cursorcolumn'
 endfunction
 
+function! s:break_options() abort
+  return &linebreak && &breakindent ? 'nolinebreak nobreakindent' : 'linebreak breakindent'
+endfunction
+
 function! s:option_map(letter, option, mode) abort
   call s:map('n', '[o'.a:letter, ':'.a:mode.' '.a:option.'<C-R>=<SID>statusbump()<CR><CR>')
   call s:map('n', ']o'.a:letter, ':'.a:mode.' no'.a:option.'<C-R>=<SID>statusbump()<CR><CR>')
@@ -287,6 +291,9 @@ call s:map('n', 'yox', ':set <C-R>=<SID>cursor_options()<CR><CR>')
 call s:map('n', '[o+', ':set cursorline cursorcolumn<CR>')
 call s:map('n', ']o+', ':set nocursorline nocursorcolumn<CR>')
 call s:map('n', 'yo+', ':set <C-R>=<SID>cursor_options()<CR><CR>')
+call s:map('n', '[ot', ':set linebreak breakindent<CR>')
+call s:map('n', ']ot', ':set nolinebreak nobreakindent<CR>')
+call s:map('n', 'yot', ':set <C-R>=<SID>break_options()<CR><CR>')
 
 function! s:legacy_option_map(letter) abort
   let y = get(get(g:, 'nremap', {}), 'y', 'y')
